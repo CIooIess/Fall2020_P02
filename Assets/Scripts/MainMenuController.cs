@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         ScoreDisplay();
 
         if (_startingSong != null)

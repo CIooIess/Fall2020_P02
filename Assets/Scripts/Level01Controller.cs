@@ -7,19 +7,28 @@ using UnityEngine.UI;
 public class Level01Controller : MonoBehaviour
 {
     [SerializeField] Text _currentScoreTextView;
+    [SerializeField] GameObject _levelMenuPanel;
 
     int _currentScore;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        //Eventually will replace w/ actual implementation
+        if (Input.GetKeyDown(KeyCode.Q) && !_levelMenuPanel.activeSelf)
         {
             IncreaseScore(5);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ExitLevel();
+            _levelMenuPanel.SetActive(!_levelMenuPanel.activeSelf);
+            CursorState();
         }
     }
 
@@ -28,6 +37,22 @@ public class Level01Controller : MonoBehaviour
         _currentScore += scoreIncrease;
         _currentScoreTextView.text =
             "> SCORE = " + _currentScore.ToString();
+    }
+
+    public void CursorState()
+    {
+        if (_levelMenuPanel.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Debug.Log("Cursor Free & Visible");
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Debug.Log("Cursor Locked & Hidden");
+        }
     }
 
     public void ExitLevel()
