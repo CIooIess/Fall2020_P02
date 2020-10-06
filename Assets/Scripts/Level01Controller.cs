@@ -8,6 +8,7 @@ public class Level01Controller : MonoBehaviour
 {
     [SerializeField] Text _currentScoreTextView;
     [SerializeField] GameObject _levelMenuPanel;
+    [SerializeField] MouseLook _mainCameraLock;
 
     int _currentScore;
 
@@ -41,6 +42,8 @@ public class Level01Controller : MonoBehaviour
 
     public void CursorState()
     {
+        _mainCameraLock.moveLock = !_mainCameraLock.moveLock;
+
         if (_levelMenuPanel.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
