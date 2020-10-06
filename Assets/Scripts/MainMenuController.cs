@@ -14,7 +14,7 @@ public class MainMenuController : MonoBehaviour
         Cursor.visible = true;
         ScoreDisplay();
 
-        if (_startingSong != null)
+        if (_startingSong != null && AudioManager.Instance.playing != true)
         {
             AudioManager.Instance.PlaySong(_startingSong);
         }

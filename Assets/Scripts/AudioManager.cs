@@ -6,6 +6,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance = null;
+    public bool playing;
 
     AudioSource _audioSource;
 
@@ -29,5 +30,6 @@ public class AudioManager : MonoBehaviour
     {
         _audioSource.clip = clip;
         _audioSource.Play();
+        playing = true;
     }
 }
