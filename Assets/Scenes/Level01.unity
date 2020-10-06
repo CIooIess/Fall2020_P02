@@ -5745,7 +5745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveLock: 0
-  mouseSensitivity: 500
+  mouseSensitivity: 200
   playerBody: {fileID: 1426046678}
 --- !u!1 &1113799114
 GameObject:
