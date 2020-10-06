@@ -17,10 +17,16 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    float sprint = 1f;
 
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (Input.GetButton("Run"))
+            sprint = 1.5f;
+        else
+            sprint = 1f;
 
         if(isGrounded && velocity.y < 0)
         {
@@ -36,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         velocity.y += gravity * weight * Time.deltaTime;
-        Vector3 move = transform.right * x * speed 
-                     + transform.forward * z * speed 
+        Vector3 move = transform.right * x * speed * sprint 
+                     + transform.forward * z * speed * sprint
                      + transform.up * velocity.y;
         controller.Move(move * Time.deltaTime);
     }
