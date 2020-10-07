@@ -8,7 +8,6 @@ public class Level01Controller : MonoBehaviour
 {
     [SerializeField] Text _currentScoreTextView;
     [SerializeField] GameObject _levelMenuPanel;
-    [SerializeField] MouseLook _mainCameraLock;
 
     int _currentScore;
 
@@ -26,7 +25,7 @@ public class Level01Controller : MonoBehaviour
             IncreaseScore(5);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && PlayerHealth.Player.playerHealth > 0)
         {
             _levelMenuPanel.SetActive(!_levelMenuPanel.activeSelf);
             CursorState();
@@ -42,7 +41,7 @@ public class Level01Controller : MonoBehaviour
 
     public void CursorState()
     {
-        _mainCameraLock.moveLock = !_mainCameraLock.moveLock;
+        MouseLook.Lock.moveLock = !MouseLook.Lock.moveLock;
 
         if (_levelMenuPanel.activeSelf)
         {
@@ -67,5 +66,10 @@ public class Level01Controller : MonoBehaviour
             Debug.Log("New High Score: " + _currentScore);
         }
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("Level01");
     }
 }

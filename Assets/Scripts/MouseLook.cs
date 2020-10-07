@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    public static MouseLook Lock;
+
     public bool moveLock;
 
     public float mouseSensitivity = 100;
@@ -11,6 +13,11 @@ public class MouseLook : MonoBehaviour
     public Transform playerBody;
 
     float xRotation = 0f;
+
+    void Start()
+    {
+        Lock = this;
+    }
 
     // Update is called once per frame
     void Update()

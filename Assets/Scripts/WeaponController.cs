@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] ParticleSystem _weaponFlash;
+    [SerializeField] AudioClip _weaponFire;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class WeaponController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             _weaponFlash.Play();
+            AudioSource.PlayClipAtPoint(_weaponFire, transform.position);
         }
     }
 }

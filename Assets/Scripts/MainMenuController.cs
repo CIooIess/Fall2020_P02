@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
     {
         int highScore = PlayerPrefs.GetInt("HighScore");
         _highScoreTextView.text =
-            "> HIGH SCORE = " + highScore.ToString();
+            "> HIGH_SCORE = " + highScore.ToString();
     }
 
     public void ResetData()
