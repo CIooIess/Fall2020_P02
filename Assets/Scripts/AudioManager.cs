@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource _audioSource;
     [SerializeField] AudioSource _globalSFX1;
     [SerializeField] AudioSource _globalSFX2;
+    [SerializeField] AudioSource _globalSFX3;
 
     private void Awake()
     {
@@ -45,6 +46,27 @@ public class AudioManager : MonoBehaviour
         {
             _globalSFX2.clip = clip;
             _globalSFX2.Play();
+        }
+        if (channel == 3)
+        {
+            _globalSFX3.clip = clip;
+            _globalSFX3.Play();
+        }
+    }
+
+    public void StopSFX(int channel)
+    {
+        if (channel == 1)
+        {
+            _globalSFX1.Stop();
+        }
+        if (channel == 2)
+        {
+            _globalSFX2.Stop();
+        }
+        if (channel == 3)
+        {
+            _globalSFX3.Stop();
         }
     }
 }

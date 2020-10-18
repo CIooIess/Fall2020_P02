@@ -17,10 +17,16 @@ public class WeaponController : MonoBehaviour
     [SerializeField] Image _chargeBarViewImage;
     [SerializeField] Text _chargeBarViewText;
     [Space(10)]
+    [SerializeField] Image _crosshairs;
+    [SerializeField] Sprite _crosshairsActive;
+    [SerializeField] Sprite _crosshairsHover;
+    [SerializeField] Sprite _crosshairsInactive;
+    [Space(10)]
     [SerializeField] Camera _mainCamera;
     [SerializeField] Transform _rayOrigin;
     [Space(10)]
-    
+
+    RaycastHit enemyDetect;
     RaycastHit rayHit;
 
     public float shootDistance = 10f;
@@ -50,6 +56,13 @@ public class WeaponController : MonoBehaviour
         {
             StartCoroutine("Charge");
         }
+
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out enemyDetect, shootDistance) && enemyDetect.collider.CompareTag("Enemy") && !cooling) {
+            _crosshairs.sprite = _crosshairsHover;
+        } else if (!cooling)
+        {
+            _crosshairs.sprite = _crosshairsActive;
+        }
     }
 
     IEnumerator Charge()
@@ -57,11 +70,10 @@ public class WeaponController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if (Input.GetButton("Fire1"))
         {
+            AudioManager.Instance.PlaySFX(_weaponChargeSFX, 3);
             _weaponCharge.Play();
             while (Input.GetButton("Fire1"))
             {
-                AudioManager.Instance.PlaySFX(_weaponChargeSFX, 1);
-
                 if (charge < chargeMax)
                     charge += chargeIncrease;
                 if (charge > chargeMax)
@@ -77,7 +89,9 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator Cooldown()
     {
+        _crosshairs.sprite = _crosshairsInactive;
         yield return new WaitForSeconds(cooldown);
+        _crosshairs.sprite = _crosshairsActive;
         cooling = false;
     }
 
@@ -91,6 +105,7 @@ public class WeaponController : MonoBehaviour
     void Shoot()
     {
         StopAllCoroutines();
+        AudioManager.Instance.StopSFX(3);
         _weaponCharge.Clear();
         _weaponCharge.Stop();
         _weaponFlash.Play();
