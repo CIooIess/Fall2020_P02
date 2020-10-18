@@ -8,7 +8,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] ParticleSystem _weaponFlash;
     [SerializeField] ParticleSystem _weaponCharge;
     [Space(10)]
-    [SerializeField] AudioClip _weaponFire;
+    [SerializeField] AudioClip _weaponFireSFX;
+    [SerializeField] AudioClip _weaponBigFireSFX;
     [SerializeField] AudioClip _weaponChargeSFX;
     [Space(10)]
     [SerializeField] Image _chargeBarViewImage;
@@ -16,18 +17,19 @@ public class WeaponController : MonoBehaviour
     [Space(10)]
     [SerializeField] Camera _mainCamera;
     [SerializeField] Transform _rayOrigin;
-    [SerializeField] Light _pointLight;
     [Space(10)]
     
     RaycastHit rayHit;
 
     public float shootDistance = 10f;
+    public float weaponDamage = 10;
 
     bool cooling;
     public float cooldown = 1f;
-    float charge = 0f;
+    float charge = 0;
     public float chargeMax = 20f;
-    public float chargeRate = 0.1f;
+    public float chargeInc = 1;
+    public float chargeRate = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,13 +61,13 @@ public class WeaponController : MonoBehaviour
                 AudioManager.Instance.PlaySFX(_weaponChargeSFX, 1);
 
                 if (charge < chargeMax)
-                    charge += chargeRate;
+                    charge += chargeInc;
                 if (charge > chargeMax)
                     charge = chargeMax;
 
                 UIUpdate();
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(chargeRate);
             }
         }
         yield return null;
@@ -90,17 +92,24 @@ public class WeaponController : MonoBehaviour
         _weaponCharge.Clear();
         _weaponCharge.Stop();
         _weaponFlash.Play();
-        AudioManager.Instance.PlaySFX(_weaponFire, 1);
+        if (charge < chargeMax / 1.2f)
+            AudioManager.Instance.PlaySFX(_weaponFireSFX, 1);
+        else
+            AudioManager.Instance.PlaySFX(_weaponBigFireSFX, 1);
 
         //calculate direction for ray
         Vector3 rayDirection = _mainCamera.transform.forward;
         //cast a debug ray
         Debug.DrawRay(_rayOrigin.position, rayDirection * shootDistance, Color.blue, 1f);
         //do ray
-        if (Physics.Raycast(_rayOrigin.position, rayDirection, out rayHit, shootDistance))
+        if (Physics.Raycast(_mainCamera.transform.position, rayDirection, out rayHit, shootDistance))
         {
             Debug.Log("Ray hit a " + rayHit.transform.name);
-            _pointLight.transform.position = rayHit.point;
+            if (rayHit.collider.CompareTag("Enemy"))
+            {
+                EnemyController hitEnemy = rayHit.collider.gameObject.GetComponent<EnemyController>();
+                hitEnemy.HealthChange(-Mathf.Abs(weaponDamage + charge));
+            }
         }
         else
             Debug.Log("Miss");
