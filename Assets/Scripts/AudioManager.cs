@@ -8,7 +8,9 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance = null;
     public bool playing;
 
-    AudioSource _audioSource;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioSource _globalSFX1;
+    [SerializeField] AudioSource _globalSFX2;
 
     private void Awake()
     {
@@ -17,7 +19,6 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            _audioSource = GetComponent<AudioSource>();
         }
         else
         {
@@ -31,5 +32,19 @@ public class AudioManager : MonoBehaviour
         _audioSource.clip = clip;
         _audioSource.Play();
         playing = true;
+    }
+
+    public void PlaySFX(AudioClip clip, int channel)
+    {
+        if (channel == 1)
+        {
+            _globalSFX1.clip = clip;
+            _globalSFX1.Play();
+        }
+        if (channel == 2)
+        {
+            _globalSFX2.clip = clip;
+            _globalSFX2.Play();
+        }
     }
 }

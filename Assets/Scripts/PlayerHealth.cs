@@ -14,6 +14,10 @@ public class PlayerHealth : MonoBehaviour
     public float playerHealth = 100f;
     float healthLimit;
 
+    [Space(10)]
+    [SerializeField] AudioClip _hurtSound;
+    [SerializeField] AudioClip _healSound;
+
     void Start()
     {
         Player = this;
@@ -49,6 +53,11 @@ public class PlayerHealth : MonoBehaviour
         {
             playerHealth = 0;
         }
+
+        if (changeAmount < 0)
+            AudioManager.Instance.PlaySFX(_hurtSound, 2);
+        if (changeAmount > 0)
+            AudioManager.Instance.PlaySFX(_healSound, 2);
 
         _healthBarViewImage.rectTransform.localScale = new Vector3(playerHealth / healthLimit, 1f, 1f);
         _healthLabelViewText.text =
