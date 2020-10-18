@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {   
     [SerializeField] GameObject _enemyBullet;
-    [SerializeField] Transform _playerTarget;
+    Transform _playerTarget;
     [SerializeField] Image _enemyHealthViewImage;
     [SerializeField] Text _enemyDamageNumber;
 
@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        _playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
         healthMax = enemyHealth;
     }
 

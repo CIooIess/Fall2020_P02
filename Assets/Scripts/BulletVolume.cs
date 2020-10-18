@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletVolume : MonoBehaviour
 {
-    [SerializeField] Rigidbody _rb;
+    Rigidbody rb;
 
     public int damage;
     public float moveSpeed = 100f;
@@ -12,8 +12,9 @@ public class BulletVolume : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * moveSpeed);
         gameObject.transform.parent = null;
-        _rb.AddForce(transform.forward * moveSpeed);
         StartCoroutine("Life");
     }
 

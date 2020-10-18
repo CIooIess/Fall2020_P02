@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour
     public float cooldown = 1f;
     float charge = 0;
     public float chargeMax = 20f;
-    public float chargeInc = 1;
+    public float chargeIncrease = 1;
     public float chargeRate = 0.5f;
 
     // Start is called before the first frame update
@@ -61,7 +61,7 @@ public class WeaponController : MonoBehaviour
                 AudioManager.Instance.PlaySFX(_weaponChargeSFX, 1);
 
                 if (charge < chargeMax)
-                    charge += chargeInc;
+                    charge += chargeIncrease;
                 if (charge > chargeMax)
                     charge = chargeMax;
 
