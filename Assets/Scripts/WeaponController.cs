@@ -7,10 +7,12 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField] ParticleSystem _weaponFlash;
     [SerializeField] ParticleSystem _weaponCharge;
+    [SerializeField] Object _weaponTrail;
     [Space(10)]
     [SerializeField] AudioClip _weaponFireSFX;
     [SerializeField] AudioClip _weaponBigFireSFX;
     [SerializeField] AudioClip _weaponChargeSFX;
+    [SerializeField] AudioClip _weaponHitSFX;
     [Space(10)]
     [SerializeField] Image _chargeBarViewImage;
     [SerializeField] Text _chargeBarViewText;
@@ -95,7 +97,7 @@ public class WeaponController : MonoBehaviour
         if (charge < chargeMax / 1.2f)
             AudioManager.Instance.PlaySFX(_weaponFireSFX, 1);
         else
-            AudioManager.Instance.PlaySFX(_weaponBigFireSFX, 1);
+            AudioManager.Instance.PlaySFX(_weaponBigFireSFX, 2);
 
         //calculate direction for ray
         Vector3 rayDirection = _mainCamera.transform.forward;
@@ -105,6 +107,18 @@ public class WeaponController : MonoBehaviour
         if (Physics.Raycast(_mainCamera.transform.position, rayDirection, out rayHit, shootDistance))
         {
             Debug.Log("Ray hit a " + rayHit.transform.name);
+
+            float step = 1f / 30f;
+            float currentStep = 0;
+            for (int i = 0; i < 30f; i++)
+            {
+                currentStep += step;
+                Vector3 position = Vector3.Lerp(_rayOrigin.position, rayHit.point, currentStep);
+                Instantiate(_weaponTrail, position, Quaternion.Euler(0, 0, 0));
+            }
+
+            AudioSource.PlayClipAtPoint(_weaponHitSFX, rayHit.point);
+
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 EnemyController hitEnemy = rayHit.collider.gameObject.GetComponent<EnemyController>();
@@ -112,7 +126,17 @@ public class WeaponController : MonoBehaviour
             }
         }
         else
+        {
+            float step = 1f / 30f;
+            float currentStep = 0;
+            for (int i = 0; i < 30f; i++)
+            {
+                currentStep += step;
+                Vector3 position = Vector3.Lerp(_rayOrigin.position, _mainCamera.transform.position + rayDirection * shootDistance, currentStep);
+                Instantiate(_weaponTrail, position, Quaternion.Euler(0, 0, 0));
+            }
             Debug.Log("Miss");
+        }
 
         charge = 0;
         UIUpdate();

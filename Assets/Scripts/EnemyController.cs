@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {   
     [SerializeField] GameObject _enemyBullet;
+    [SerializeField] AudioClip _enemyHurtSFX;
     Transform _playerTarget;
     [SerializeField] Image _enemyHealthViewImage;
     [SerializeField] Text _enemyDamageNumber;
@@ -57,6 +58,8 @@ public class EnemyController : MonoBehaviour
         {
             enemyHealth = 0;
         }
+
+        AudioSource.PlayClipAtPoint(_enemyHurtSFX, transform.position);
 
         _enemyHealthViewImage.rectTransform.localScale = new Vector3(enemyHealth / healthMax, 1f, 1f);
 
