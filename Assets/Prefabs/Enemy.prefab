@@ -209,7 +209,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyBullet: {fileID: 2809434476160705213, guid: 92c85083d22af5a489123839512161e9,
     type: 3}
+  _enemyFireSFX: {fileID: 8300000, guid: 9a63af6fc9ef2ef4c98cb56066072f61, type: 3}
   _enemyHurtSFX: {fileID: 8300000, guid: 2c9c937afff2afc438fb4375ee503102, type: 3}
+  _enemyDieSFX: {fileID: 8300000, guid: 6a71ef274f38bc24eaba2ab9041f1742, type: 3}
   _enemyHealthViewImage: {fileID: 5958715191088332816}
   _enemyDamageNumber: {fileID: 5958715191003189616}
   enemyHealth: 100

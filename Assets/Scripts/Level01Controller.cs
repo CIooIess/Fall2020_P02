@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Level01Controller : MonoBehaviour
 {
+    public static Level01Controller Level01;
+
     [SerializeField] Text _currentScoreTextView;
     [SerializeField] GameObject _levelMenuPanel;
 
@@ -13,21 +15,18 @@ public class Level01Controller : MonoBehaviour
 
     private void Start()
     {
+        Level01 = this;
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        //Eventually will replace w/ actual implementation
-        if (Input.GetKeyDown(KeyCode.Q) && !_levelMenuPanel.activeSelf)
-        {
-            IncreaseScore(5);
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape) && PlayerHealth.Player.playerHealth > 0)
         {
             _levelMenuPanel.SetActive(!_levelMenuPanel.activeSelf);
+
             CursorState();
         }
     }
@@ -47,12 +46,14 @@ public class Level01Controller : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            Time.timeScale = 0;
             Debug.Log("Cursor Free & Visible");
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Time.timeScale = 1;
             Debug.Log("Cursor Locked & Hidden");
         }
     }

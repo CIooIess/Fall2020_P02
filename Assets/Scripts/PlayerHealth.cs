@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     [Space(10)]
     [SerializeField] AudioClip _hurtSound;
     [SerializeField] AudioClip _healSound;
+    [SerializeField] AudioClip _deathSound;
 
     void Start()
     {
@@ -68,6 +69,8 @@ public class PlayerHealth : MonoBehaviour
             MouseLook.Lock.moveLock = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            AudioManager.Instance.PlaySFX(_deathSound, 2);
+            Time.timeScale = 0;
 
             _deathMenuPanel.SetActive(true);
         }

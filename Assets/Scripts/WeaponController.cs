@@ -48,13 +48,21 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonUp("Fire1") && !cooling)
+        if (Input.GetButtonUp("Fire1") && !cooling && Time.timeScale == 1)
         {
             Shoot();
         }
         if (Input.GetButtonDown("Fire1"))
         {
             StartCoroutine("Charge");
+        }
+        if (!Input.GetButton("Fire1") && cooling)
+        {
+            AudioManager.Instance.StopSFX(3);
+            _weaponCharge.Clear();
+            _weaponCharge.Stop();
+            charge = 0;
+            UIUpdate();
         }
 
         if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out enemyDetect, shootDistance) && enemyDetect.collider.CompareTag("Enemy") && !cooling) {

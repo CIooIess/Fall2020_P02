@@ -6,11 +6,17 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {   
     [SerializeField] GameObject _enemyBullet;
+    [Space(10)]
+    [SerializeField] AudioClip _enemyFireSFX;
     [SerializeField] AudioClip _enemyHurtSFX;
-    Transform _playerTarget;
+    [SerializeField] AudioClip _enemyDieSFX;
+    [Space(10)]
     [SerializeField] Image _enemyHealthViewImage;
     [SerializeField] Text _enemyDamageNumber;
 
+    Transform _playerTarget;
+
+    public float moveSpeed = 1f;
     public float enemyHealth = 100f;
     float healthMax;
     public float engageDistance = 2f;
@@ -30,6 +36,7 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(_playerTarget.position, transform.position) < engageDistance)
         {
             transform.LookAt(_playerTarget);
+            transform.position = Vector3.MoveTowards(transform.position, _playerTarget.position, moveSpeed * Time.deltaTime);
             if (isFiring == false)
             {
                 isFiring = true;
@@ -39,6 +46,14 @@ public class EnemyController : MonoBehaviour
         {
             isFiring = false;
             StopCoroutine("BulletFire");
+
+            /*
+            if (Random.Range(0, 1000) == 500)
+            {
+                transform.Rotate(Random.Range(-90,90), Random.Range(0, 360), transform.rotation.eulerAngles.z);
+            }
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward * 1, moveSpeed * Time.deltaTime);
+            */
         }
     }
 
@@ -65,6 +80,8 @@ public class EnemyController : MonoBehaviour
 
         if (enemyHealth == 0)
         {
+            Level01Controller.Level01.IncreaseScore(10);
+            AudioSource.PlayClipAtPoint(_enemyDieSFX, transform.position);
             Destroy(gameObject);
         }
     }
@@ -83,7 +100,8 @@ public class EnemyController : MonoBehaviour
         while (Vector3.Distance(_playerTarget.position, transform.position) < engageDistance)
         {
             yield return new WaitForSeconds(fireDelay);
-            Instantiate(_enemyBullet, gameObject.transform);
+            Instantiate(_enemyBullet, transform);
+            AudioSource.PlayClipAtPoint(_enemyFireSFX, transform.position);
         }
         yield return null;
     }
