@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {   
     [SerializeField] GameObject _enemyBullet;
+    [SerializeField] Object _deathParticles;
     [Space(10)]
     [SerializeField] AudioClip _enemyFireSFX;
     [SerializeField] AudioClip _enemyHurtSFX;

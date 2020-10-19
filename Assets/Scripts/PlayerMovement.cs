@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if ((x != 0 || z != 0) && !isStepping && isGrounded)
+        if ((x > 0.1f || x < -0.1f || z > 0.1f || z < -0.1f) && !isStepping && isGrounded)
         {
             StartCoroutine("Step");
         } else if (!isStepping)

@@ -27,19 +27,6 @@ public class PlayerHealth : MonoBehaviour
             "> HEALTH_STATUS = " + playerHealth.ToString();
     }
 
-    void Update()
-    {
-        //for testing purposes
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            HealthChange(-10);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            HealthChange(10);
-        }
-    }
-
     public void HealthChange(int changeAmount)
     {
         if (playerHealth > 0)
