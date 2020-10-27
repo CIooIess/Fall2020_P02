@@ -24,10 +24,4 @@ public class ChamberLoader : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("deleted" + other);
-        Destroy(other.GetComponentInChildren<Transform>().gameObject);
-    }
 }
