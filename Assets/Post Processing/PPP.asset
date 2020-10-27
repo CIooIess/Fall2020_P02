@@ -18,15 +18,15 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 1
+    value: 0
   intensity:
     overrideState: 1
-    value: 0
+    value: 4
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
-    overrideState: 1
+    overrideState: 0
     value: 1
   noiseFilterTolerance:
     overrideState: 0
@@ -39,16 +39,16 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1
+    value: 10
   directLightingStrength:
     overrideState: 0
     value: 0
   radius:
-    overrideState: 0
-    value: 0.25
-  quality:
-    overrideState: 0
+    overrideState: 1
     value: 2
+  quality:
+    overrideState: 1
+    value: 3
 --- !u!114 &-6574478680453918686
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -61,13 +61,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
   m_Name: ScreenSpaceReflections
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   preset:
     overrideState: 1
-    value: 2
+    value: 4
   maximumIterationCount:
     overrideState: 0
     value: 16
@@ -82,9 +82,9 @@ MonoBehaviour:
     value: 100
   distanceFade:
     overrideState: 1
-    value: 0.5
+    value: 0
   vignette:
-    overrideState: 1
+    overrideState: 0
     value: 0.5
 --- !u!114 &-4265097144483476753
 MonoBehaviour:
