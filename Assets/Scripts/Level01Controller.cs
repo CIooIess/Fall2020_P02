@@ -10,6 +10,8 @@ public class Level01Controller : MonoBehaviour
 
     [SerializeField] Text _currentScoreTextView;
     [SerializeField] GameObject _levelMenuPanel;
+    [SerializeField] GameObject _nodesGroup;
+    [SerializeField] GameObject _node;
 
     int _currentScore;
 
@@ -19,6 +21,14 @@ public class Level01Controller : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        for (int z = -400; z < 400; z+=40)
+        {
+            for (int x = -400; x < 400; x+=40)
+            {
+                Instantiate(_node, new Vector3(x+20,0,z+20), Quaternion.Euler(0,0,0), _nodesGroup.transform);
+            }
+        }
     }
 
     private void Update()
