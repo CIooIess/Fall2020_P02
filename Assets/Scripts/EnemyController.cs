@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 
     public float moveSpeed = 1f;
     public float enemyHealth = 100f;
+    public int score = 10;
     float healthMax;
     public float engageDistance = 2f;
     public float fireDelay = 1f;
@@ -81,7 +82,7 @@ public class EnemyController : MonoBehaviour
 
         if (enemyHealth == 0)
         {
-            Level01Controller.Level01.IncreaseScore(10);
+            Level01Controller.Level01.IncreaseScore(score);
             AudioSource.PlayClipAtPoint(_enemyDieSFX, transform.position);
             Destroy(gameObject);
         }

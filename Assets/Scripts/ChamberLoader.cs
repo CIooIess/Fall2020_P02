@@ -18,9 +18,10 @@ public class ChamberLoader : MonoBehaviour
             if (nodes[i].CompareTag("Node") && nodes[i].transform.childCount == 0)
             {
                 Debug.Log(nodes + "detected");
-                int r = Random.Range(0, _chambers.Length - 1);
+                int r = Mathf.FloorToInt(Random.Range(0, _chambers.Length));
                 Debug.Log(r);
-                Instantiate(_chambers[r], nodes[i].transform);
+                int rot = Mathf.FloorToInt(Random.Range(0, 4));
+                Instantiate(_chambers[r], nodes[i].transform.position, Quaternion.Euler(0,rot*90,0), nodes[i].transform);
             }
         }
     }

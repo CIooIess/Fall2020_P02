@@ -53,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerHealth <= 0)
         {
+            AudioManager.Instance.StopSFX(3);
             MouseLook.Lock.moveLock = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

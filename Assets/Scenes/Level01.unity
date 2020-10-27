@@ -242,7 +242,7 @@ MonoBehaviour:
     type: 3}
   _mainCamera: {fileID: 963194227}
   _rayOrigin: {fileID: 1328501995}
-  shootDistance: 20
+  shootDistance: 25
   weaponDamage: 10
   cooldown: 1
   chargeMax: 20
@@ -12405,6 +12405,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chambers:
   - {fileID: 3572633134268741972, guid: 0e3fa3dc249745645a33e7b05e3171c8, type: 3}
+  - {fileID: 3572633134268741972, guid: 52c42bd0dc5c46443aef3da2e0218885, type: 3}
+  - {fileID: 3572633134268741972, guid: 64446bd6747a2f845ae12fcf0c5f95ab, type: 3}
+  - {fileID: 3572633134268741972, guid: b9fb47f1475de0b4ba42d8e034e89b47, type: 3}
+  - {fileID: 3572633134268741972, guid: 8463d9ab83cd7e046aa375ad0f4cdb2d, type: 3}
+  - {fileID: 3572633134268741972, guid: 9b949f9ac3059c842bdec60f5855241d, type: 3}
   renderRadius: 120
 --- !u!1 &1429122374
 GameObject:

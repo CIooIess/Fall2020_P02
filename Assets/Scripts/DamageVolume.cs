@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class DamageVolume : MonoBehaviour
 {
-    [SerializeField] CharacterController _player;
+    Collider player;
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+    }
 
     public int damage;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == _player)
+        if (other == player)
         {
             PlayerHealth.Player.HealthChange(-Mathf.Abs(damage));
         }
